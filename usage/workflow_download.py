@@ -383,9 +383,9 @@ def log_before_raise():
         return path
 
     def exception_listener(e: JmcomicException):
-        "
+        """
  异常监听器，实现了在 GitHub Actions 下，把请求错误的信息下载到文件，方便调试和通知使用者
- "
+ """
         # 决定要写入的文件路径
         path = decide_filepath(e)
 
