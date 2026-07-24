@@ -1,5 +1,6 @@
 from jmcomic import *
 from jmcomic.cl import JmcomicUI
+import os
 
 
 # 下方填入你要下载的本子的id，一行一个，每行的首尾可以有空白字符
@@ -342,7 +343,7 @@ def jm_main():
     photo_id_set = get_id_set('JM_PHOTO_IDS', jm_photos)
     raise_if_invalid_id_set(album_id_set + photo_id_set)
 
-    dir_rule = DirRule(env('DIR_RULE', 'Bd_Aauthor_Bname_Pindex'))
+    dir_rule = DirRule(env('DIR_RULE', 'Bd_Aauthor_Bname_Pindex'), base_dir=os.environ.get('JM_DOWNLOAD_DIR', '.'))
 
     option = create_option(
         usage='cl',
