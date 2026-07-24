@@ -336,7 +336,7 @@ def cover_option_config(option: JmOption):
     dir_rule = env('DIR_RULE', None)
     if dir_rule is not None:
         the_old = option.dir_rule
-        the_new = DirRule(dir_rule, base_dir=the_old.base_dir)
+        the_new = DirRule(env('DIR_RULE', 'Bd_Analyze'), base_dir=os.environ.get('JM_DOWNLOAD_DIR', '.'))
         option.dir_rule = the_new
 
     impl = env('CLIENT_IMPL', None)
@@ -411,4 +411,3 @@ def log_before_raise():
 
 if __name__ == '__main__':
     main()
-
