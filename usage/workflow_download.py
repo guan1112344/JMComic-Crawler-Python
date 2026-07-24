@@ -3,7 +3,7 @@ from jmcomic.cl import JmcomicUI
 import os
 
 
-# 下方填入你要下载的本子的id，一行一个，每行的首尾可以有空白字符
+# 涓嬫柟濉叆浣犺涓嬭浇鐨勬湰瀛愮殑id锛屼竴琛屼竴涓紝姣忚鐨勯灏惧彲浠ユ湁绌虹櫧瀛楃
 jm_albums = '''
 1212672
 1446079
@@ -284,7 +284,7 @@ jm_albums = '''
 '''
 
 
-# 单独下载章节
+# 鍗曠嫭涓嬭浇绔犺妭
 jm_photos = '''
 
 
@@ -335,7 +335,7 @@ def get_id_set(env_name, given):
 
 def raise_if_invalid_id_set(id_set):
     if len(id_set) == 0:
-        raise AssertionError('请填入至少一个id')
+        raise AssertionError('璇峰～鍏ヨ嚦灏戜竴涓猧d')
 
 
 def jm_main():
