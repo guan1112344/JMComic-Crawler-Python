@@ -3,7 +3,7 @@ import os
 from jmcomic.cl import JmcomicUI
 
 
-# 下方填入你要下载的本子的id，一行一个，每行的首尾可以有空白字符
+# ä¸æ¹å¡«å¥ä½ è¦ä¸è½½çæ¬å­çidï¼ä¸è¡ä¸ä¸ªï¼æ¯è¡çé¦å°¾å¯ä»¥æç©ºç½å­ç¬¦
 jm_albums = '''
 1212672
 1446079
@@ -281,9 +281,15 @@ jm_albums = '''
 1254368
 1156509
 1454522
+
+1451059
+1453339
+1453318
+1443931
+1444097
 '''
 
-# 单独下载章节
+# åç¬ä¸è½½ç« è
 jm_photos = '''
 '''
 
@@ -322,13 +328,13 @@ def main():
 
 
 def get_option():
-    # 读取 option 配置文件
+    # è¯»å option éç½®æä»¶
     option = create_option(os.path.abspath(os.path.join(__file__, '../../assets/option/option_workflow_download.yml')))
 
-    # 支持工作流覆盖配置文件的配置
+    # æ¯æå·¥ä½æµè¦çéç½®æä»¶çéç½®
     cover_option_config(option)
 
-    # 把请求错误的html下载到文件，方便GitHub Actions下载查看日志
+    # æè¯·æ±éè¯¯çhtmlä¸è½½å°æä»¶ï¼æ¹ä¾¿GitHub Actionsä¸è½½æ¥çæ¥å¿
     log_before_raise()
 
     return option
@@ -350,8 +356,8 @@ def cover_option_config(option: JmOption):
         option.download.image.suffix = fix_suffix(suffix)
 
     pdf_option = env('PDF_OPTION', None)
-    if pdf_option and pdf_option != '否':
-        call_when = 'after_album' if pdf_option == '是 | 本子维度合并pdf' else 'after_photo'
+    if pdf_option and pdf_option != 'å¦':
+        call_when = 'after_album' if pdf_option == 'æ¯ | æ¬å­ç»´åº¦åå¹¶pdf' else 'after_photo'
         plugin = [{
             'plugin': Img2pdfPlugin.plugin_key,
             'kwargs': {
@@ -381,17 +387,17 @@ def log_before_raise():
                 suffix
             ]
         )
-        path = f'{jm_download_dir}/【出错了】{name}.log'
+        path = f'{jm_download_dir}/ãåºéäºã{name}.log'
         return path
 
     def exception_listener(e: JmcomicException):
         """
- 异常监听器，实现了在 GitHub Actions 下，把请求错误的信息下载到文件，方便调试和通知使用者
+ å¼å¸¸çå¬å¨ï¼å®ç°äºå¨ GitHub Actions ä¸ï¼æè¯·æ±éè¯¯çä¿¡æ¯ä¸è½½å°æä»¶ï¼æ¹ä¾¿è°è¯åéç¥ä½¿ç¨è
  """
-        # 决定要写入的文件路径
+        # å³å®è¦åå¥çæä»¶è·¯å¾
         path = decide_filepath(e)
 
-        # 准备内容
+        # åå¤åå®¹
         content = [
             str(type(e)),
             e.msg,
@@ -402,9 +408,9 @@ def log_before_raise():
         # resp.text
         resp = e.context.get(ExceptionTool.CONTEXT_KEY_RESP, None)
         if resp:
-            content.append(f'响应文本: {resp.text}')
+            content.append(f'ååºææ¬: {resp.text}')
 
-        # 写文件
+        # åæä»¶
         write_text(path, '\n'.join(content))
 
 
@@ -413,3 +419,4 @@ def log_before_raise():
 
 if __name__ == '__main__':
     main()
+
